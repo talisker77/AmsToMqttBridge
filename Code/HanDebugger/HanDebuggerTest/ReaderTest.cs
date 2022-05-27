@@ -9,7 +9,6 @@ namespace HanDebuggerTest
     [TestClass]
     [DeploymentItem(@"SampleData.txt")]
     [DeploymentItem(@"Kamstrup228.txt")]
-    [DeploymentItem("Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll")]
     public class ReaderTest
     {
         [TestMethod]

@@ -1,11 +1,7 @@
 ﻿using HanDebugger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HanDebuggerTest
 {
@@ -15,16 +11,20 @@ namespace HanDebuggerTest
         [TestMethod]
         public void TestDlmsReader()
         {
-            var text = File.ReadAllText("SampleData.txt").Replace("\r\n", " ").Replace("  ", " ");
-            byte[] bytes = text.Trim().Split(' ').Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
-            var reader = new DlmsReader();
+            var text = File.ReadAllLines("SampleData.txt");//.Replace(@"\r\n", " ").Replace("  ", " ");
             int packages = 0;
-            for (int i=0; i<bytes.Length; i++)
+            foreach (var line in text)
             {
-                if (reader.Read(bytes[i]))
+                byte[] bytes = line.Trim().Split(' ').Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
+                var reader = new DlmsReader();
+
+                for (int i = 0; i < bytes.Length; i++)
                 {
-                    packages++;
-                    //byte[] data = reader.GetRawData();
+                    if (reader.Read(bytes[i]))
+                    {
+                        packages++;
+                        //byte[] data = reader.GetRawData();
+                    }
                 }
             }
             Assert.IsTrue(packages == 559, $"There should be 559 packages. Was: {packages}");
@@ -35,20 +35,24 @@ namespace HanDebuggerTest
         [TestMethod]
         public void TestDlmsReaderWithError()
         {
-            var text = File.ReadAllText("SampleData.txt").Replace("\r\n", " ").Replace("  ", " ");
-            byte[] bytes = text.Trim().Split(' ').Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
-            bytes = bytes.Skip(10).ToArray();
-            var reader = new DlmsReader();
+            var text = File.ReadAllLines("SampleData.txt");//.Replace("\r\n", " ").Replace("  ", " ");
             int packages = 0;
-            for (int i = 0; i < bytes.Length; i++)
+            foreach (var line in text)
             {
-                if (reader.Read(bytes[i]))
+                byte[] bytes = line.Trim().Split(' ').Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
+                bytes = bytes.Skip(10).ToArray(); //creating error 
+                var reader = new DlmsReader();
+
+                for (int i = 0; i < bytes.Length; i++)
                 {
-                    packages++;
-                    //byte[] data = reader.GetRawData();
+                    if (reader.Read(bytes[i]))
+                    {
+                        packages++;
+                        //byte[] data = reader.GetRawData();
+                    }
                 }
             }
-            Assert.IsTrue(packages == 558, $"There should be 558 packages. Was: {packages}");
+            Assert.IsTrue(packages == 0, $"There should be 0 correct packages. Was: {packages}");
 
         }
     }
