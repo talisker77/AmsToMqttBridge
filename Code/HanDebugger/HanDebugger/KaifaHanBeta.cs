@@ -50,11 +50,17 @@ namespace HanDebugger
             int year = package[start + timeStart] << 8 |
                 package[start + timeStart + 1];
 
+            System.Console.WriteLine("Year: {0}", year);
             int month = package[start + timeStart + 2];
+            System.Console.WriteLine("Month: {0}", month);
             int day = package[start + timeStart + 3];
+            System.Console.WriteLine("Day: {0}", day);
             int hour = package[start + timeStart + 5];
+            System.Console.WriteLine("Hour: {0}", hour);
             int minute = package[start + timeStart + 6];
+            System.Console.WriteLine("Minute: {0}", minute);
             int second = package[start + timeStart + 7];
+            System.Console.WriteLine("Second: {0}", second);
 
 
             return new DateTime(year, month, day, hour, minute, second);
