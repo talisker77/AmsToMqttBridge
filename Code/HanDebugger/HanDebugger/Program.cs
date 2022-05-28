@@ -47,13 +47,20 @@ namespace HanDebugger
             }
             var consumption = new List<int>();
             var line = gBuffer.ToArray();
-            var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
-            System.Console.WriteLine("Package time: {0}", packageDateTime);
+            if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List3)
+            {
+                var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
+                System.Console.WriteLine("Package time: {0}", packageDateTime);
+            }
             if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List1)
             {
-                consumption.Add(KaifaHanBeta.GetInt(0, line, 0, line.Length));
+                System.Console.WriteLine("Checking consumption...");
+                var consume = KaifaHanBeta.GetInt(0, line, 0, line.Length);
+                System.Console.WriteLine("Got comsume counter: {0}", consume);
+                consumption.Add(consume);
+                System.Console.WriteLine("Consumption: {0}", consumption.Sum());
             }
-            System.Console.WriteLine("Consumption: {0}", consumption.Sum());
+
             int j = 0;
             foreach (var vByte in gBuffer)
             {
