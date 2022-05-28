@@ -11,7 +11,7 @@ namespace HanDebugger
 
         static void Main(string[] args)
         {
-            SerialPort vPort = new SerialPort("COM3", 2400, Parity.Even, 8, StopBits.One);
+            SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
             vPort.DataReceived += VPort_DataReceived;
             vPort.Open();
 
@@ -22,7 +22,7 @@ namespace HanDebugger
         private static void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var vPort = sender as SerialPort;
-            byte[] vBuffer = new byte[1000];
+            byte[] vBuffer = new byte[1024];
             int vBytesRead = vPort.Read(vBuffer, 0, vBuffer.Length);
             for (int i = 0; i < vBytesRead; i++)
             {
