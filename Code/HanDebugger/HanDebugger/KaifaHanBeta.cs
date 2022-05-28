@@ -44,6 +44,22 @@ namespace HanDebugger
             return new DateTime(year, month, day, hour, minute, second).Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds;
         }
 
+        public static DateTime GetPackageDateTime(byte[] package, int start, int length)
+        {
+            const int timeStart = 10;
+            int year = package[start + timeStart] << 8 |
+                package[start + timeStart + 1];
+
+            int month = package[start + timeStart + 2];
+            int day = package[start + timeStart + 3];
+            int hour = package[start + timeStart + 5];
+            int minute = package[start + timeStart + 6];
+            int second = package[start + timeStart + 7];
+
+
+            return new DateTime(year, month, day, hour, minute, second);
+        }
+
         public static int GetInt(int dataPosition, byte[] buffer, int start, int length)
         {
             const int dataStart = 24;

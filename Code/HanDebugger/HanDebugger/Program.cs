@@ -47,6 +47,8 @@ namespace HanDebugger
             }
             var consumption = new List<int>();
             var line = gBuffer.ToArray();
+            var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
+            System.Console.WriteLine("Package time: {0}", packageDateTime);
             if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List1)
             {
                 consumption.Add(KaifaHanBeta.GetInt(0, line, 0, line.Length));
