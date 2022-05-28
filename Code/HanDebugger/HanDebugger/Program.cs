@@ -51,8 +51,12 @@ namespace HanDebugger
                     Console.WriteLine();
             }
 
+            var hanReader = new HanDebugger.Reader(gBuffer.ToArray());
+            if(hanReader.IsValid()){
+                System.Console.WriteLine("REceived bytes is valid");
+            }
             Console.WriteLine();
-            Console.WriteLine();
+            // Console.WriteLine();
 
             gBuffer.Clear();
         }
