@@ -38,7 +38,11 @@ namespace HanDebugger
         {
             Console.WriteLine();
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - Received {gBuffer.Count} (0x{gBuffer.Count:X2}) bytes]");
-
+            var hanReader = new HanDebugger.Reader(gBuffer.ToArray());
+	    
+	    if(hanReader.IsValid()){
+                System.Console.WriteLine("Received bytes is valid");
+            }
             int j = 0;
             foreach (var vByte in gBuffer)
             {
@@ -50,11 +54,7 @@ namespace HanDebugger
                 if (j % 24 == 0)
                     Console.WriteLine();
             }
-
-            var hanReader = new HanDebugger.Reader(gBuffer.ToArray());
-            if(hanReader.IsValid()){
-                System.Console.WriteLine("REceived bytes is valid");
-            }
+            
             Console.WriteLine();
             // Console.WriteLine();
 
