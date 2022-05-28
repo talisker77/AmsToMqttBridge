@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 using System.Linq;
+using System.Runtime;
 
 namespace HanDebugger
 {
@@ -61,17 +62,18 @@ namespace HanDebugger
                 System.Console.WriteLine("Consumption: {0}", consumption.Sum());
             }
 
-            int j = 0;
-            foreach (var vByte in gBuffer)
-            {
-                Console.Write(string.Format("{0:X2} ", (int)vByte));
+            System.Console.WriteLine("Received bytes: {0}", Convert.ToHexString(gBuffer.ToArray()));
+            // int j = 0;
+            // foreach (var vByte in gBuffer)
+            // {
+            //     Console.Write(string.Format("{0:X2} ", (int)vByte));
 
-                if (++j % 8 == 0)
-                    Console.Write(" ");
+            //     if (++j % 8 == 0)
+            //         Console.Write(" ");
 
-                if (j % 24 == 0)
-                    Console.WriteLine();
-            }
+            //     if (j % 24 == 0)
+            //         Console.WriteLine();
+            // }
 
             Console.WriteLine();
             // Console.WriteLine();
