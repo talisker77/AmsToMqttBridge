@@ -27,7 +27,7 @@ namespace HanDebugger
             for (int i = 0; i < vBytesRead; i++)
             {
                 gBuffer.Add(vBuffer[i]);
-                
+
                 // If we're catching a '7E' and it's not the beginning, it must be the end
                 if (gBuffer.Count > 1 && vBuffer[i] == 0x7e)
                     WriteAndEmptyBuffer();
@@ -39,10 +39,18 @@ namespace HanDebugger
             Console.WriteLine();
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - Received {gBuffer.Count} (0x{gBuffer.Count:X2}) bytes]");
             var hanReader = new HanDebugger.Reader(gBuffer.ToArray());
-	    
-	    if(hanReader.IsValid()){
+
+            if (hanReader.IsValid())
+            {
                 System.Console.WriteLine("Received bytes is valid");
             }
+            var consumption = new List<int>();
+            var line = gBuffer.ToArray();
+            if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List1)
+            {
+                consumption.Add(KaifaHanBeta.GetInt(0, line, 0, line.Length));
+            }
+            System.Console.WriteLine("Consumption: {0}", consumption.Sum());
             int j = 0;
             foreach (var vByte in gBuffer)
             {
@@ -54,7 +62,7 @@ namespace HanDebugger
                 if (j % 24 == 0)
                     Console.WriteLine();
             }
-            
+
             Console.WriteLine();
             // Console.WriteLine();
 
