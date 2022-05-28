@@ -48,6 +48,9 @@ namespace HanDebugger
             }
             var consumption = new List<int>();
             var line = gBuffer.ToArray();
+
+            var size = KaifaHanBeta.GetMessageSize(line,0, line.Length);
+            System.Console.WriteLine("Got message size: {0}", size);
             if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List3)
             {
                 var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);

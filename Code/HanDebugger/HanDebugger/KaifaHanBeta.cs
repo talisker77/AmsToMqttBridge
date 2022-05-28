@@ -88,5 +88,10 @@ namespace HanDebugger
             }
             return 0;
         }
+
+        public static int GetMessageSize (byte[] buffer, int start ,int length ){
+            var size = buffer[1]&0x0F<<8|buffer[2];
+            return Convert.ToUInt16( size);
+        }
     }
 }
