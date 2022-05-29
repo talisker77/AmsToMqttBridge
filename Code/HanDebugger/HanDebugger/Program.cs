@@ -64,15 +64,15 @@ namespace HanDebugger
 
             System.Console.WriteLine("Checking consumption...");
             var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
-            System.Console.WriteLine("Current consumption: {0:000}kW", consume / 10000);
+            System.Console.WriteLine("Current consumption: {0:0.###}kW", consume / 10000);
             consumption.Add(consume);
-            System.Console.WriteLine("Average consumption: {0:000}kW", consumption.Average() / 10000);
+            System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 10000);
 
             if (listId == HanDebugger.KaifaHanBeta.List3)
             {
                 var start = 1073;
                 var currentAnualConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
-                System.Console.WriteLine("Current anual consumption is: {0:000}kW/h", currentAnualConsumption / 10000);
+                System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
             }
 
 
