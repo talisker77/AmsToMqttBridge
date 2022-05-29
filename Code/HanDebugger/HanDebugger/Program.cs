@@ -11,6 +11,7 @@ namespace HanDebugger
     {
         static List<byte> gBuffer = new List<byte>();
         static List<int> consumption = new List<int>();
+        static bool collectData=false;
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
@@ -75,11 +76,12 @@ namespace HanDebugger
                 System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
             }
 
-
-            var receivedHex = Convert.ToHexString(gBuffer.ToArray());
-            System.Console.WriteLine("Received bytes: {0}", receivedHex);
-            receivedHex += Environment.NewLine;
-            System.IO.File.AppendAllText($"./../../../Samples/Kaifa/kaifa-{DateTime.Today:yyyy-MM-dd}-sample.txt", receivedHex);
+            if(collectData){
+                        var receivedHex = Convert.ToHexString(gBuffer.ToArray());
+                        System.Console.WriteLine("Received bytes: {0}", receivedHex);
+                        receivedHex += Environment.NewLine;
+                        System.IO.File.AppendAllText($"./../../../Samples/Kaifa/kaifa-{DateTime.Today:yyyy-MM-dd}-sample.txt", receivedHex);
+            }
             // int j = 0;
             // foreach (var vByte in gBuffer)
             // {
