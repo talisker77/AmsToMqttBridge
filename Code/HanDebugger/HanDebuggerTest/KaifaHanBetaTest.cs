@@ -9,8 +9,8 @@ using HanDebugger.Extensions;
 namespace HanDebuggerTest
 {
     [TestClass]
-    [DeploymentItem(@"ESP 20170918 Raw.txt")]
-    [DeploymentItem("Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll")]
+    // [DeploymentItem(@"ESP 20170918 Raw.txt")]
+    // [DeploymentItem("Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll")]
     public class KaifaHanBetaTest
     {
         [TestMethod]
@@ -65,15 +65,28 @@ namespace HanDebuggerTest
         [TestMethod]
         public void TestKaifaReadings()
         {
-            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-2022-05-29-sample.txt");
+            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-10-sec-data.txt");
+            System.Console.WriteLine("Read {0} lines", lines.Length);
+
             foreach (var line in lines)
             {
-                var package = line.SplitInParts(2).Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
-                if (KaifaHanBeta.GetListID(package, 0, package.Length) == KaifaHanBeta.List1)
+                var parts = line.SplitInParts(2);
+                var package = parts.Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
+                System.Console.WriteLine("Trying to get consuption for package: {0}", line);
+
+                var packageDateTime = HanDebugger.KaifaHanBeta.GetPackageDateTime(package, 0, package.Length);
+                var listId = KaifaHanBeta.GetListID(package, 0, package.Length);
+                if (listId == KaifaHanBeta.List1)
                 {
-                    var consume = KaifaHanBeta.GetInt(0, package, 0, package.Length);
+                    var consume = KaifaHanBeta.GetInt(33, package, 0, package.Length);
                     System.Console.WriteLine("Got consumption of {0}", consume);
                 }
+                if (listId == KaifaHanBeta.List2 || listId == KaifaHanBeta.List3)
+                {
+                    var consume = KaifaHanBeta.GetInt(70, package, 0, package.Length);
+                    System.Console.WriteLine("Got consumption of {0}", consume);
+                }
+
             }
         }
     }

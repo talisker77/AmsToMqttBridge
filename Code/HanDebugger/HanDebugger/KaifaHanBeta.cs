@@ -11,18 +11,18 @@ namespace HanDebugger
     public class KaifaHanBeta
     {
         public const byte ListUnknown = 0x00;
-        public const byte List1 = 0x01;
-        public const byte List2 = 0x0D;
-        public const byte List3 = 0x12;
+        public const byte List1 = 0x27;
+        public const byte List2 = 0x79;
+        public const byte List3 = 0x9B;
 
         public static byte GetListID(byte[] package, int start, int length)
         {
-            switch (package[start + 23])
+            switch (package[start + 2])
             {
                 case List1:
                 case List2:
                 case List3:
-                    return package[start + 23];
+                    return package[start + 2];
                 default:
                     return 0x00;
             }
@@ -46,7 +46,7 @@ namespace HanDebugger
 
         public static DateTime GetPackageDateTime(byte[] package, int start, int length)
         {
-            const int timeStart = 10;
+            const int timeStart = 19;
             int year = package[start + timeStart] << 8 | package[start + timeStart + 1];
 
             System.Console.WriteLine("Year: {0}", year);
@@ -67,7 +67,7 @@ namespace HanDebugger
 
         public static int GetInt(int dataPosition, byte[] buffer, int start, int length)
         {
-            const int dataStart = 24;
+             int dataStart = dataPosition;
             int value = 0;
             int foundPosition = 0;
             for (int i = start + dataStart; i < start + length; i++)
@@ -79,8 +79,7 @@ namespace HanDebugger
                 }
                 else
                 {
-                    value = value << 8 |
-                        buffer[i];
+                    value = value << 8 | buffer[i];
                     if (i == foundPosition + 4)
                         return value;
                 }
@@ -93,7 +92,5 @@ namespace HanDebugger
             var size = buffer[1] & 0x0F << 8 | buffer[2];
             return Convert.ToUInt16(size);
         }
-
-
     }
 }

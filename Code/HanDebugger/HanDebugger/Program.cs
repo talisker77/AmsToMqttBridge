@@ -10,7 +10,7 @@ namespace HanDebugger
     class Program
     {
         static List<byte> gBuffer = new List<byte>();
-
+        static  List<int> consumption = new List<int>();
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
@@ -51,24 +51,23 @@ namespace HanDebugger
                 System.Console.WriteLine("Received bytes not valid");
                 return;
             }
-            var consumption = new List<int>();
+
             var line = gBuffer.ToArray();
 
             var size = KaifaHanBeta.GetMessageSize(line, 0, line.Length);
             System.Console.WriteLine("Got message size: {0}", size);
-            if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List3)
-            {
-                var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
-                System.Console.WriteLine("Package time: {0}", packageDateTime);
-            }
-            if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List1)
-            {
-                System.Console.WriteLine("Checking consumption...");
-                var consume = KaifaHanBeta.GetInt(0, line, 0, line.Length);
-                System.Console.WriteLine("Got comsume counter: {0}", consume);
-                consumption.Add(consume);
-                System.Console.WriteLine("Consumption: {0}", consumption.Sum());
-            }
+
+            var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
+            System.Console.WriteLine("Package time: {0}", packageDateTime);
+            var listId = KaifaHanBeta.GetListID(line, 0, line.Length);
+            var consumptionElementStart = listId == HanDebugger.KaifaHanBeta.List1 ? 33 : 70;
+
+            System.Console.WriteLine("Checking consumption...");
+            var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
+            System.Console.WriteLine("Current consumption: {0}W", consume);
+            consumption.Add(consume);
+            System.Console.WriteLine("Total consumption: {0}", consumption.Sum());
+
 
             var receivedHex = Convert.ToHexString(gBuffer.ToArray());
             System.Console.WriteLine("Received bytes: {0}", receivedHex);

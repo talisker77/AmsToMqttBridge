@@ -7,8 +7,8 @@ using HanDebugger;
 namespace HanDebuggerTest
 {
     [TestClass]
-    [DeploymentItem(@"SampleData.txt")]
-    [DeploymentItem(@"Kamstrup228.txt")]
+    // [DeploymentItem(@"SampleData.txt")]
+    // [DeploymentItem(@"Kamstrup228.txt")]
     public class ReaderTest
     {
         [TestMethod]
