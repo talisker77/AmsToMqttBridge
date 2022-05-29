@@ -65,7 +65,7 @@ namespace HanDebuggerTest
         [TestMethod]
         public void TestKaifaReadings()
         {
-            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-10-sec-data.txt");
+            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-60-min-data.txt");
             System.Console.WriteLine("Read {0} lines", lines.Length);
 
             foreach (var line in lines)
@@ -84,6 +84,11 @@ namespace HanDebuggerTest
                 if (listId == KaifaHanBeta.List2 || listId == KaifaHanBeta.List3)
                 {
                     var consume = KaifaHanBeta.GetInt(70, package, 0, package.Length);
+                    System.Console.WriteLine("Got consumption of {0}", consume);
+                }
+                if (listId == KaifaHanBeta.List3)
+                {
+                    var consume = KaifaHanBeta.GetInt(134, package, 0, package.Length);
                     System.Console.WriteLine("Got consumption of {0}", consume);
                 }
 

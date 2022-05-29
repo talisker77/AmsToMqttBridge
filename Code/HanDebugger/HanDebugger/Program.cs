@@ -70,7 +70,7 @@ namespace HanDebugger
 
             if (listId == HanDebugger.KaifaHanBeta.List3)
             {
-                var start = 1073;
+                var start = 134;
                 var currentAnualConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
                 System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
             }
