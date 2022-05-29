@@ -49,7 +49,7 @@ namespace HanDebugger
             var consumption = new List<int>();
             var line = gBuffer.ToArray();
 
-            var size = KaifaHanBeta.GetMessageSize(line,0, line.Length);
+            var size = KaifaHanBeta.GetMessageSize(line, 0, line.Length);
             System.Console.WriteLine("Got message size: {0}", size);
             if (KaifaHanBeta.GetListID(line, 0, line.Length) == KaifaHanBeta.List3)
             {
@@ -65,7 +65,10 @@ namespace HanDebugger
                 System.Console.WriteLine("Consumption: {0}", consumption.Sum());
             }
 
-            System.Console.WriteLine("Received bytes: {0}", Convert.ToHexString(gBuffer.ToArray()));
+            var receivedHex = Convert.ToHexString(gBuffer.ToArray());
+            System.Console.WriteLine("Received bytes: {0}", receivedHex);
+            receivedHex += Environment.NewLine;
+            System.IO.File.AppendAllText($"~/projects/ams-dotnet/Samples/Kaifa/kaifa-{DateTime.Today:s}-sample.txt", receivedHex);
             // int j = 0;
             // foreach (var vByte in gBuffer)
             // {

@@ -47,8 +47,7 @@ namespace HanDebugger
         public static DateTime GetPackageDateTime(byte[] package, int start, int length)
         {
             const int timeStart = 10;
-            int year = package[start + timeStart] << 8 |
-                package[start + timeStart + 1];
+            int year = package[start + timeStart] << 8 | package[start + timeStart + 1];
 
             System.Console.WriteLine("Year: {0}", year);
             int month = package[start + timeStart + 2];
@@ -89,9 +88,12 @@ namespace HanDebugger
             return 0;
         }
 
-        public static int GetMessageSize (byte[] buffer, int start ,int length ){
-            var size = buffer[1]&0x0F<<8|buffer[2];
-            return Convert.ToUInt16( size);
+        public static int GetMessageSize(byte[] buffer, int start, int length)
+        {
+            var size = buffer[1] & 0x0F << 8 | buffer[2];
+            return Convert.ToUInt16(size);
         }
+
+
     }
 }
