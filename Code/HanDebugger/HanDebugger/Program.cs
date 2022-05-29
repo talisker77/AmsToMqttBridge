@@ -10,7 +10,7 @@ namespace HanDebugger
     class Program
     {
         static List<byte> gBuffer = new List<byte>();
-        static  List<int> consumption = new List<int>();
+        static List<int> consumption = new List<int>();
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
@@ -64,9 +64,9 @@ namespace HanDebugger
 
             System.Console.WriteLine("Checking consumption...");
             var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
-            System.Console.WriteLine("Current consumption: {0}W", consume);
+            System.Console.WriteLine("Current consumption: {0}kW", consume);
             consumption.Add(consume);
-            System.Console.WriteLine("Total consumption: {0}", consumption.Sum());
+            System.Console.WriteLine("Average consumption: {0}kW", consumption.Average());
 
 
             var receivedHex = Convert.ToHexString(gBuffer.ToArray());
