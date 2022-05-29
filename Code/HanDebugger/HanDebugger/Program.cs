@@ -46,6 +46,11 @@ namespace HanDebugger
             {
                 System.Console.WriteLine("Received bytes is valid");
             }
+            else
+            {
+                System.Console.WriteLine("Received bytes not valid");
+                return;
+            }
             var consumption = new List<int>();
             var line = gBuffer.ToArray();
 

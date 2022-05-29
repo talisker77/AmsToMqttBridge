@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Collections.Generic;
 using HanDebugger;
+using HanDebugger.Extensions;
 
 namespace HanDebuggerTest
 {
@@ -60,6 +61,20 @@ namespace HanDebuggerTest
                 }
             }
             Assert.AreEqual(1500.0, consumption.Average(), 500.0, "Consumption should be between 1000 and 2000 watts");
+        }
+        [TestMethod]
+        public void TestKaifaReadings()
+        {
+            var lines = File.ReadAllLines("/home/pi/projects/ams-dotnet/Samples/Kaifa/kaifa-2022-05-29T00:00:00-sample.txt");
+            foreach (var line in lines)
+            {
+                var package = line.SplitInParts(2).Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
+                if (KaifaHanBeta.GetListID(package, 0, package.Length) == KaifaHanBeta.List1)
+                {
+                    var consume = KaifaHanBeta.GetInt(0, package, 0, package.Length);
+                    System.Console.WriteLine("Got consumption of {0}", consume);
+                }
+            }
         }
     }
 }
