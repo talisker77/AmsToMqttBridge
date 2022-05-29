@@ -65,7 +65,7 @@ namespace HanDebuggerTest
         [TestMethod]
         public void TestKaifaReadings()
         {
-            var lines = File.ReadAllLines("/home/pi/projects/ams-dotnet/Samples/Kaifa/kaifa-2022-05-29T00:00:00-sample.txt");
+            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-2022-05-29T00:00:00-sample.txt");
             foreach (var line in lines)
             {
                 var package = line.SplitInParts(2).Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
