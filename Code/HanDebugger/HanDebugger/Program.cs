@@ -64,9 +64,9 @@ namespace HanDebugger
 
             System.Console.WriteLine("Checking consumption...");
             var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
-            System.Console.WriteLine("Current consumption: {0}kW", consume / 1000);
+            System.Console.WriteLine("Current consumption: {0}kW", consume / 10000);
             consumption.Add(consume);
-            System.Console.WriteLine("Average consumption: {0}kW", consumption.Average() / 1000);
+            System.Console.WriteLine("Average consumption: {0}kW", consumption.Average() / 10000);
 
 
             var receivedHex = Convert.ToHexString(gBuffer.ToArray());
