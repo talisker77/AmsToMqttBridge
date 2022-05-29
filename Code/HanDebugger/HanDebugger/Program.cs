@@ -68,7 +68,7 @@ namespace HanDebugger
             var receivedHex = Convert.ToHexString(gBuffer.ToArray());
             System.Console.WriteLine("Received bytes: {0}", receivedHex);
             receivedHex += Environment.NewLine;
-            System.IO.File.AppendAllText($"~/projects/ams-dotnet/Samples/Kaifa/kaifa-{DateTime.Today:s}-sample.txt", receivedHex);
+            System.IO.File.AppendAllText($"/home/pi/projects/ams-dotnet/Samples/Kaifa/kaifa-{DateTime.Today:s}-sample.txt", receivedHex);
             // int j = 0;
             // foreach (var vByte in gBuffer)
             // {
