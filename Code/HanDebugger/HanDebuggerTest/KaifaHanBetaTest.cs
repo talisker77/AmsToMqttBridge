@@ -47,7 +47,8 @@ namespace HanDebuggerTest
             Assert.AreEqual(targetList1To2Ratio, actualList1To2Ratio, 0.01, "There should be a ratio of List1:List2 of 4");
         }
 
-        [TestMethod]
+        [TestMethod()]
+
         public void TestGetConsumption()
         {
             List<int> consumption = new List<int>();
@@ -72,8 +73,10 @@ namespace HanDebuggerTest
             {
                 var parts = line.SplitInParts(2);
                 var package = parts.Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray();
+                var reader = new HanDebugger.Reader(package);
                 System.Console.WriteLine("Trying to get consuption for package: {0}", line);
 
+                reader.Anaylyze();
                 var packageDateTime = HanDebugger.KaifaHanBeta.GetPackageDateTime(package, 0, package.Length);
                 var listId = KaifaHanBeta.GetListID(package, 0, package.Length);
                 if (listId == KaifaHanBeta.List1)

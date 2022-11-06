@@ -67,7 +67,7 @@ namespace HanDebugger
 
         public static int GetInt(int dataPosition, byte[] buffer, int start, int length)
         {
-             int dataStart = dataPosition;
+            int dataStart = dataPosition;
             int value = 0;
             int foundPosition = 0;
             for (int i = start + dataStart; i < start + length; i++)

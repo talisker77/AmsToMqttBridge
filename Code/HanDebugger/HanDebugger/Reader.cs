@@ -12,6 +12,8 @@ namespace HanDebugger
         private int dataLength;
         private byte[] buffer;
 
+        static List<int> consumption = new List<int>();
+
         public Reader(byte[] buffer)
         {
             this.buffer = buffer;
@@ -68,5 +70,29 @@ namespace HanDebugger
             return (buffer[0] == 0x7E);
         }
 
+        public void Anaylyze()
+        {
+            var line = buffer;
+            var size = KaifaHanBeta.GetMessageSize(line, 0, line.Length);
+            System.Console.WriteLine("Got message size: {0}", size);
+
+            var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
+            System.Console.WriteLine("Package time: {0}", packageDateTime);
+            var listId = KaifaHanBeta.GetListID(line, 0, line.Length);
+            var consumptionElementStart = listId == HanDebugger.KaifaHanBeta.List1 ? 33 : 70;
+
+            System.Console.WriteLine("Checking consumption...");
+            var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
+            System.Console.WriteLine("Current consumption: {0} Watt", consume);
+            consumption.Add(consume);
+            System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 10000);
+
+            if (listId == HanDebugger.KaifaHanBeta.List3)
+            {
+                var start = 134;
+                var currentAnualConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
+                System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
+            }
+        }
     }
 }

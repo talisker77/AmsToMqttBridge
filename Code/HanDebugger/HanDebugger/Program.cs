@@ -10,7 +10,7 @@ namespace HanDebugger
     class Program
     {
         static List<byte> gBuffer = new List<byte>();
-        static List<int> consumption = new List<int>();
+        static bool collectData = false;
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
@@ -54,47 +54,29 @@ namespace HanDebugger
 
             var line = gBuffer.ToArray();
 
-            var size = KaifaHanBeta.GetMessageSize(line, 0, line.Length);
-            System.Console.WriteLine("Got message size: {0}", size);
+            hanReader.Anaylyze();
 
-            var packageDateTime = KaifaHanBeta.GetPackageDateTime(line, 0, line.Length);
-            System.Console.WriteLine("Package time: {0}", packageDateTime);
-            var listId = KaifaHanBeta.GetListID(line, 0, line.Length);
-            var consumptionElementStart = listId == HanDebugger.KaifaHanBeta.List1 ? 33 : 70;
-
-            System.Console.WriteLine("Checking consumption...");
-            var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
-            System.Console.WriteLine("Current consumption: {0} Watt", consume);
-            consumption.Add(consume);
-            System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 10000);
-
-            if (listId == HanDebugger.KaifaHanBeta.List3)
+            if (collectData)
             {
-                var start = 134;
-                var currentAnualConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
-                System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
+                var receivedHex = Convert.ToHexString(gBuffer.ToArray());
+                System.Console.WriteLine("Received bytes: {0}", receivedHex);
+                receivedHex += Environment.NewLine;
+                System.IO.File.AppendAllText($"./../../../Samples/Kaifa/kaifa-{DateTime.Today:yyyy-MM-dd}-sample.txt", receivedHex);
+                // int j = 0;
+                // foreach (var vByte in gBuffer)
+                // {
+                //     Console.Write(string.Format("{0:X2} ", (int)vByte));
+
+                //     if (++j % 8 == 0)
+                //         Console.Write(" ");
+
+                //     if (j % 24 == 0)
+                //         Console.WriteLine();
+                // }
+
+                Console.WriteLine();
+                // Console.WriteLine();
             }
-
-
-            var receivedHex = Convert.ToHexString(gBuffer.ToArray());
-            System.Console.WriteLine("Received bytes: {0}", receivedHex);
-            receivedHex += Environment.NewLine;
-            System.IO.File.AppendAllText($"./../../../Samples/Kaifa/kaifa-{DateTime.Today:yyyy-MM-dd}-sample.txt", receivedHex);
-            // int j = 0;
-            // foreach (var vByte in gBuffer)
-            // {
-            //     Console.Write(string.Format("{0:X2} ", (int)vByte));
-
-            //     if (++j % 8 == 0)
-            //         Console.Write(" ");
-
-            //     if (j % 24 == 0)
-            //         Console.WriteLine();
-            // }
-
-            Console.WriteLine();
-            // Console.WriteLine();
-
             gBuffer.Clear();
         }
     }
