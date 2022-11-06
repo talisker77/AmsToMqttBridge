@@ -10,7 +10,8 @@ namespace HanDebugger
     class Program
     {
         static List<byte> gBuffer = new List<byte>();
-        static bool collectData = false;
+        // static List<int> consumption = new List<int>();
+        bool collectData = false;
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
@@ -51,11 +52,7 @@ namespace HanDebugger
                 System.Console.WriteLine("Received bytes not valid");
                 return;
             }
-
-            var line = gBuffer.ToArray();
-
             hanReader.Anaylyze();
-
             if (collectData)
             {
                 var receivedHex = Convert.ToHexString(gBuffer.ToArray());
