@@ -89,7 +89,7 @@ namespace HanDebugger
 
             var productionElementStart = listId == HanDebugger.KaifaHanBeta.List1? 43:80;
 
-            var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.length);
+            var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
             System.Console.WriteLine("Current production: {0} Watt", produce); 
 
             if (listId == HanDebugger.KaifaHanBeta.List3)
