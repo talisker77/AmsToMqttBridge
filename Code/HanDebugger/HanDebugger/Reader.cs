@@ -87,6 +87,11 @@ namespace HanDebugger
             consumption.Add(consume);
             System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 10000);
 
+            var productionElementStart = listId == HanDebugger.KaifaHanBeta.List1? 43:80;
+
+            var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.length);
+            System.Console.WriteLine("Current production: {0} Watt", produce); 
+
             if (listId == HanDebugger.KaifaHanBeta.List3)
             {
                 var start = 134;
