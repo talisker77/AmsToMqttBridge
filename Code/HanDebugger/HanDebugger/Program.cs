@@ -11,7 +11,7 @@ namespace HanDebugger
     {
         static List<byte> gBuffer = new List<byte>();
         // static List<int> consumption = new List<int>();
-        static bool collectData = true;
+        static bool collectData = true; //save data
         static void Main(string[] args)
         {
             SerialPort vPort = new SerialPort("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
