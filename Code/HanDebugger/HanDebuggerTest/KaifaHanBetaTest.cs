@@ -17,7 +17,11 @@ namespace HanDebuggerTest
         public void TestGetPackageID()
         {
             Dictionary<byte, int> packageCount = new Dictionary<byte, int>();
-            var packages = File.ReadAllLines("ESP 20170918 Raw.txt");
+            //var packages = File.ReadAllLines("ESP 20170918 Raw.txt");
+            var directory = Directory.GetCurrentDirectory();
+            var path = Path.Combine(directory, "Samples", "kaifa-2023-05-17-sample.txt");
+            var packages = File.ReadAllLines(path);
+            Console.WriteLine("Path: {0}", path);
             var lines = packages.Select(line => line.Trim().Split(' ').Select(v => (byte)int.Parse(v, System.Globalization.NumberStyles.HexNumber)).ToArray()).ToArray();
             foreach (var line in lines)
             {
@@ -63,10 +67,14 @@ namespace HanDebuggerTest
             }
             Assert.AreEqual(1500.0, consumption.Average(), 500.0, "Consumption should be between 1000 and 2000 watts");
         }
+
         [TestMethod]
         public void TestKaifaReadings()
         {
-            var lines = File.ReadAllLines(@"./../../../../../../Samples/Kaifa/kaifa-60-min-data.txt");
+            var directory = Directory.GetCurrentDirectory();
+            var path = Path.Combine(directory, "Samples", "kaifa-2023-05-17-sample.txt");
+            //var packages = File.ReadAllLines(path);
+            var lines = File.ReadAllLines(path);
             System.Console.WriteLine("Read {0} lines", lines.Length);
 
             foreach (var line in lines)
@@ -82,17 +90,38 @@ namespace HanDebuggerTest
                 if (listId == KaifaHanBeta.List1)
                 {
                     var consume = KaifaHanBeta.GetInt(33, package, 0, package.Length);
-                    System.Console.WriteLine("Got consumption of {0}", consume);
+                    System.Console.WriteLine("Got consumption of {0} in list 1", consume);
                 }
                 if (listId == KaifaHanBeta.List2 || listId == KaifaHanBeta.List3)
                 {
                     var consume = KaifaHanBeta.GetInt(70, package, 0, package.Length);
-                    System.Console.WriteLine("Got consumption of {0}", consume);
+                    System.Console.WriteLine(
+                        "Got consumption of {0} in list 2(x79/{3}) or 3(x9B/{2}) ({1})"
+                        , consume
+                        , listId
+                        , KaifaHanBeta.List3
+                        , KaifaHanBeta.List2
+                    );
                 }
                 if (listId == KaifaHanBeta.List3)
                 {
                     var consume = KaifaHanBeta.GetInt(134, package, 0, package.Length);
-                    System.Console.WriteLine("Got consumption of {0}", consume);
+                    System.Console.WriteLine("Got consumption of {0} list 3(9B/{1})", consume, KaifaHanBeta.List3);
+                }
+                //if (listId == KaifaHanBeta.List1)
+                //{
+                //    var production = KaifaHanBeta.GetInt(38, package, 0, package.Length);
+                //    System.Console.WriteLine("Got production of {0} in list 1 ({1}) ", production, listId);
+                //}
+                if (listId == KaifaHanBeta.List2 || listId == KaifaHanBeta.List3)
+                {
+                    var production = KaifaHanBeta.GetInt(75, package, 0, package.Length);
+                    System.Console.WriteLine("Got production of {0} in list 2(79) or 3(9B) ({1})", production, listId);
+                }
+                if (listId == KaifaHanBeta.List3)
+                {
+                    var production = KaifaHanBeta.GetInt(139, package, 0, package.Length);
+                    System.Console.WriteLine("Got production of {0} in list 3 ({1})", production, listId);
                 }
 
             }

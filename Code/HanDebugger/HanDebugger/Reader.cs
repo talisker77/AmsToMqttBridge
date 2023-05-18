@@ -87,16 +87,22 @@ namespace HanDebugger
             consumption.Add(consume);
             System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 10000);
 
-            var productionElementStart = listId == HanDebugger.KaifaHanBeta.List1? 43:80;
+            var productionElementStart = 75;
 
-            var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
-            System.Console.WriteLine("Current production: {0} Watt", produce); 
+            if (listId == HanDebugger.KaifaHanBeta.List2 || listId == HanDebugger.KaifaHanBeta.List3)
+            {
+                var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
+                System.Console.WriteLine("Current production: {0} Watt", produce);
+            }
 
             if (listId == HanDebugger.KaifaHanBeta.List3)
             {
+                var cumulativeProduction = 139;
                 var start = 134;
-                var currentAnualConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
-                System.Console.WriteLine("Current anual consumption is: {0:0.###}kW/h", currentAnualConsumption / 10000);
+                var currentHourlyConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
+                System.Console.WriteLine("Current hourly consumption is: {0:0.###}kW/h", currentHourlyConsumption / 10000);
+                var currentHourlyProduction = KaifaHanBeta.GetInt(cumulativeProduction, line, 0, line.Length);
+                System.Console.WriteLine("Current hourly production is: {0:0.###}kW/h", currentHourlyProduction / 10000);
             }
         }
     }
