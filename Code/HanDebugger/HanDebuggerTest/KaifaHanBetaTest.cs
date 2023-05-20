@@ -72,7 +72,7 @@ namespace HanDebuggerTest
         public void TestKaifaReadings()
         {
             var directory = Directory.GetCurrentDirectory();
-            var path = Path.Combine(directory, "Samples", "kaifa-2023-05-17-sample.txt");
+            var path = Path.Combine(directory, "Samples", "kaifa-2023-05-20-sample.txt");
             //var packages = File.ReadAllLines(path);
             var lines = File.ReadAllLines(path);
             System.Console.WriteLine("Read {0} lines", lines.Length);
@@ -89,12 +89,12 @@ namespace HanDebuggerTest
                 var listId = KaifaHanBeta.GetListID(package, 0, package.Length);
                 if (listId == KaifaHanBeta.List1)
                 {
-                    var consume = KaifaHanBeta.GetInt(33, package, 0, package.Length);
+                    var consume = KaifaHanBeta.GetULong(33, package);//, 0, package.Length);
                     System.Console.WriteLine("Got consumption of {0} in list 1", consume);
                 }
                 if (listId == KaifaHanBeta.List2 || listId == KaifaHanBeta.List3)
                 {
-                    var consume = KaifaHanBeta.GetInt(70, package, 0, package.Length);
+                    var consume = KaifaHanBeta.GetULong(70, package);
                     System.Console.WriteLine(
                         "Got consumption of {0} in list 2(x79/{3}) or 3(x9B/{2}) ({1})"
                         , consume
@@ -105,7 +105,7 @@ namespace HanDebuggerTest
                 }
                 if (listId == KaifaHanBeta.List3)
                 {
-                    var consume = KaifaHanBeta.GetInt(134, package, 0, package.Length);
+                    var consume = KaifaHanBeta.GetULong(134, package);
                     System.Console.WriteLine("Got consumption of {0} list 3(9B/{1})", consume, KaifaHanBeta.List3);
                 }
                 //if (listId == KaifaHanBeta.List1)
@@ -117,11 +117,13 @@ namespace HanDebuggerTest
                 {
                     var production = KaifaHanBeta.GetInt(75, package, 0, package.Length);
                     System.Console.WriteLine("Got production of {0} in list 2(79) or 3(9B) ({1})", production, listId);
+                    Console.WriteLine("Production: {0} in list 2(79) or 3(9B) ({1})", KaifaHanBeta.GetULong(75, package), listId);
                 }
                 if (listId == KaifaHanBeta.List3)
                 {
                     var production = KaifaHanBeta.GetInt(139, package, 0, package.Length);
                     System.Console.WriteLine("Got production of {0} in list 3 ({1})", production, listId);
+                    Console.WriteLine("Got production (ulong) of {0} in list 3 ({1})", KaifaHanBeta.GetULong(139, package), listId);
                 }
 
             }

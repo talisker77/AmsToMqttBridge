@@ -92,5 +92,11 @@ namespace HanDebugger
             var size = buffer[1] & 0x0F << 8 | buffer[2];
             return Convert.ToUInt16(size);
         }
+
+        public static ulong GetULong(int start, byte[] buffer)
+        {
+            var number = BitConverter.ToUInt64(buffer, start);
+            return (ulong)number;
+        }
     }
 }
