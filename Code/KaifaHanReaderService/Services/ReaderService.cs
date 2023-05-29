@@ -9,13 +9,13 @@ namespace KaifaHanReaderService.Services
         private readonly ILogger<ReaderService> _logger;
         private Timer? _timer = null;
         private readonly SerialPort vPort;
-
+        private readonly List<byte> bufferList;// = new List<byte>();
         public ReaderService(ILogger<ReaderService> logger)
         {
             _logger = logger;
+            bufferList = new List<byte>();
             vPort = new("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
             vPort.DataReceived += VPort_DataReceived;
-
             _logger.LogDebug("vPort created");
         }
 
@@ -24,7 +24,7 @@ namespace KaifaHanReaderService.Services
             _logger.LogDebug("Recieved data");
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
-            var bufferList = new List<byte>();
+
             int vBytesRead = vPort.Read(vBuffer, 0, vBuffer.Length);
             for (int i = 0; i < vBytesRead; i++)
             {
