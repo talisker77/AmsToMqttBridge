@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KaifaHanReader.Models;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace KaifaHanReaderService.Services
 
         }
 
-        private static void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
@@ -34,7 +35,8 @@ namespace KaifaHanReaderService.Services
                 // If we're catching a '7E' and it's not the beginning, it must be the end
                 if (bufferList.Count > 1 && vBuffer[i] == 0x7e)
                 {
-                    WriteAndEmptyBuffer(bufferList);
+                    var data = WriteAndEmptyBuffer(bufferList);
+                    _logger.LogInformation("Data: {@data}", data);
                 }
             }
         }
@@ -79,7 +81,7 @@ namespace KaifaHanReaderService.Services
             return Task.CompletedTask;
         }
 
-        private static void WriteAndEmptyBuffer(List<byte> gBuffer)
+        private static ReaderData? WriteAndEmptyBuffer(List<byte> gBuffer)
         {
             Console.WriteLine();
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - Received {gBuffer.Count} (0x{gBuffer.Count:X2}) bytes]");
@@ -91,11 +93,12 @@ namespace KaifaHanReaderService.Services
             else
             {
                 Console.WriteLine("Received bytes not valid");
-                return;
+                return null;
             }
             var data = reader.Anaylyze();
             data.ToConsole();
             gBuffer.Clear();
+            return data;
         }
 
         public void Dispose()
