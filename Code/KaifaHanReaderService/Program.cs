@@ -7,6 +7,10 @@ builder.ConfigureLogging((logging) =>
 {
     logging.AddConsole();
     logging.AddDebug();
+    logging.AddSystemdConsole();
+    //logging.Configure(f=>{ f.d})
+    logging.AddSimpleConsole();
+    logging.SetMinimumLevel(LogLevel.Trace);
 });
 builder.ConfigureServices(services =>
 {

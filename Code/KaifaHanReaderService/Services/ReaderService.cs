@@ -19,11 +19,12 @@ namespace KaifaHanReaderService.Services
         {
             _logger = logger;
             vPort = new("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
-
+            _logger.LogDebug("vPort created");
         }
 
         private void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            _logger.LogDebug("Setting up data reciever");
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
             var bufferList = new List<byte>();
