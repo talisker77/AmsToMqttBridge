@@ -21,7 +21,6 @@ namespace KaifaHanReaderService.Services
 
         private void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            _logger.LogDebug("Recieved data");
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
 
@@ -34,10 +33,9 @@ namespace KaifaHanReaderService.Services
                 if (bufferList.Count > 1 && vBuffer[i] == 0x7e)
                 {
                     var data = WriteAndEmptyBuffer(bufferList);
-                    _logger.LogInformation("Data: {@data}", data);
+                    //_logger.LogInformation("Data: {@data}", data);
                 }
             }
-            _logger.LogDebug("Recieved data finished");
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
