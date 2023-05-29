@@ -12,7 +12,7 @@ namespace HanDebugger
         private int dataLength;
         private byte[] buffer;
 
-        static List<int> consumption = new List<int>();
+        static List<long> consumption = new List<long>();
 
         public Reader(byte[] buffer)
         {
@@ -82,10 +82,10 @@ namespace HanDebugger
             var consumptionElementStart = listId == HanDebugger.KaifaHanBeta.List1 ? 33 : 70;
 
             System.Console.WriteLine("Checking consumption...");
-            var consume = KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
+            var consume =(long) KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
             System.Console.WriteLine("Current consumption: {0} Watt", consume);
             consumption.Add(consume);
-            System.Console.WriteLine("Average consumption: {0:0.###}kW", consumption.Average() / 1000);
+            //System.Console.WriteLine("Average consumption: {0:0.###} kW", consumption.Average());
 
             var productionElementStart = 75;
 
@@ -93,16 +93,22 @@ namespace HanDebugger
             {
                 var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
                 System.Console.WriteLine("Current production: {0} Watt", produce);
+                var production = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
+                System.Console.WriteLine("Current production (ulong): {0} Watt", production);
             }
 
             if (listId == HanDebugger.KaifaHanBeta.List3)
             {
                 var cumulativeProduction = 139;
                 var start = 134;
-                var currentHourlyConsumption = KaifaHanBeta.GetInt(start, line, 0, line.Length);
-                System.Console.WriteLine("Current hourly consumption is: {0:0.###}kW/h", currentHourlyConsumption / 1000);
-                var currentHourlyProduction = KaifaHanBeta.GetInt(cumulativeProduction, line, 0, line.Length);
-                System.Console.WriteLine("Current hourly production is: {0:0.###}kW/h", currentHourlyProduction / 1000);
+                var currentHourlyConsumption = KaifaHanBeta.GetULong(start, line);
+                System.Console.WriteLine("Current annual consumption is: {0:0.###} kW/h", currentHourlyConsumption / 10000);
+                var annualConsumption = KaifaHanBeta.GetULong(start, line);
+                System.Console.WriteLine("Current annual consumption is: {0:0.###} kW/h", annualConsumption);
+                var currentHourlyProduction = KaifaHanBeta.GetULong(cumulativeProduction, line);
+                System.Console.WriteLine("Current annual production is: {0:0.###} kW/h", currentHourlyProduction / 10000);
+                var annualProduction = KaifaHanBeta.GetULong(cumulativeProduction, line);
+                System.Console.WriteLine("Current annual production is: {0:0.###} kW/h", annualProduction);
             }
         }
     }
