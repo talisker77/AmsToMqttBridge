@@ -98,5 +98,18 @@ namespace HanDebugger
             var number = BitConverter.ToUInt64(buffer, start);
             return (ulong)number;
         }
+
+        public static ulong ToULong(int start, byte[] buffer)
+        {
+            //byte[] buffer = /* Your byte array */;
+            //int startPosition = /* Start position of the ulong value in the buffer */;
+
+            ulong value = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                value |= (ulong)buffer[start + i] << (8 * i);
+            }
+            return value;
+        }
     }
 }

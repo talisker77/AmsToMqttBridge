@@ -41,5 +41,11 @@
 	  <None Update="Samples\kaifa-2023-05-20-sample.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Samples\kaifa-2023-05-27-sample.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Samples\kaifa-hourly-sample.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 	</Project>

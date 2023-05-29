@@ -44,7 +44,7 @@ A5 C5 <-- CRC
 10 Second data
 7EA079010201108093E6E7000F40000000090C07E6051D070D0400FF800000020D09074B464D5F30303109103639373036333134303739313632313609084D41333034483345060000183A0600000000060000000006000002B006000063D10600006369060000055F060000092B0600000000060000094F80DD7E
 7E
-	A0 <-- header start 
+	A0 <-- header start
 		79 
 		01 
 		02 
@@ -59,8 +59,8 @@ A5 C5 <-- CRC
 		40 
 		00 
 		00 
-		00 (5) 
-			09 <-- data type octet-string 
+		00 (5)  
+			09 <-- data type octet-string
 				0C <-- length 0C = 12
 					07 E6 05 1D 07 0D 04 00 FF 80 00 00 <<-- datetime 
 			
@@ -75,7 +75,7 @@ A5 C5 <-- CRC
 					09 
 						08
 							4D41333034483345 <-- meter type
-					060000183A <-- active power
+					060000183A <-- (start:70) active power
 					0600000000
 					0600000000
 					06000002B0
@@ -130,7 +130,7 @@ A5 C5 <-- CRC
 	0600000950
 	09 0C 07E6051D070D000AFF800000 <-- time in meter
 	0602070BF9 <-- cumulative hourly active import enery A+
-	0600000000
+	0600000000 <-- cumulative xxx active export enery  A+
 	06000003E0
 	0600545E19
 688E <--crc flag
