@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[7.0.1, )"
             },
+            "Microsoft.Extensions.Hosting.Systemd": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "System.IO.Ports": {
               "target": "Package",
               "version": "[7.0.0, )"

@@ -321,6 +321,25 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "Microsoft.Extensions.Hosting.Systemd/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Hosting": "7.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.Extensions.Hosting.Systemd.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Hosting.Systemd.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "Microsoft.Extensions.Logging/7.0.0": {
         "type": "package",
         "dependencies": {
@@ -1163,6 +1182,29 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Microsoft.Extensions.Hosting.Systemd/7.0.0": {
+      "sha512": "jL11UaMqQsHCrw12Vm3n9c1uqDkHyw8hTrj/Xv/AtayWOE2/tFlfCqb07+RLlCaQqwqvOozv2QC6864QtFxy0g==",
+      "type": "package",
+      "path": "microsoft.extensions.hosting.systemd/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Hosting.Systemd.targets",
+        "lib/net6.0/Microsoft.Extensions.Hosting.Systemd.dll",
+        "lib/net6.0/Microsoft.Extensions.Hosting.Systemd.xml",
+        "lib/net7.0/Microsoft.Extensions.Hosting.Systemd.dll",
+        "lib/net7.0/Microsoft.Extensions.Hosting.Systemd.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Hosting.Systemd.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Hosting.Systemd.xml",
+        "microsoft.extensions.hosting.systemd.7.0.0.nupkg.sha512",
+        "microsoft.extensions.hosting.systemd.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.Logging/7.0.0": {
       "sha512": "Nw2muoNrOG5U5qa2ZekXwudUn2BJcD41e65zwmDHb1fQegTX66UokLWZkJRpqSSHXDOWZ5V0iqhbxOEky91atA==",
       "type": "package",
@@ -1807,6 +1849,7 @@
     "net6.0": [
       "KaifaHanReader >= 1.0.0",
       "Microsoft.Extensions.Hosting >= 7.0.1",
+      "Microsoft.Extensions.Hosting.Systemd >= 7.0.0",
       "System.IO.Ports >= 7.0.0"
     ]
   },
@@ -1856,6 +1899,10 @@
           "Microsoft.Extensions.Hosting": {
             "target": "Package",
             "version": "[7.0.1, )"
+          },
+          "Microsoft.Extensions.Hosting.Systemd": {
+            "target": "Package",
+            "version": "[7.0.0, )"
           },
           "System.IO.Ports": {
             "target": "Package",

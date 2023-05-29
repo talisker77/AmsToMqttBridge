@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "79IOI4/sNLwKJKQ+LgdbReusm79H8c+KxNZ1pIdYAZY3xjTAIUG9qe0//U34Yy+6AWLeaGqO9I+hZLRaqqu6ZQ==",
+  "dgSpecHash": "rVs9EHdwVRYO+OdktUGqAFL1a/f4wsuFBzC+BJUM70TYls2Smi0u7/UqyAbg7LqF26jFDlO/BklLWhWuPMRr+g==",
   "success": true,
   "projectFilePath": "C:\\Kode\\GitHub\\AmsToMqttBridge\\Code\\KaifaHanReaderService\\KaifaHanReaderService.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\7.0.0\\microsoft.extensions.filesystemglobbing.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.hosting\\7.0.1\\microsoft.extensions.hosting.7.0.1.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\7.0.0\\microsoft.extensions.hosting.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.hosting.systemd\\7.0.0\\microsoft.extensions.hosting.systemd.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\microsoft.extensions.logging.configuration\\7.0.0\\microsoft.extensions.logging.configuration.7.0.0.nupkg.sha512",
