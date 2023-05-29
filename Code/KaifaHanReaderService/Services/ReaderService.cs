@@ -59,6 +59,11 @@ namespace KaifaHanReaderService.Services
                 vPort.Open();
                 _logger.LogInformation(
                     "Reader Service is working. Count: {Count}", count);
+
+                while (true)
+                {
+                    Task.Delay(1000).ConfigureAwait(false).GetAwaiter().GetResult();
+                }
             }
             catch (Exception ex)
             {
