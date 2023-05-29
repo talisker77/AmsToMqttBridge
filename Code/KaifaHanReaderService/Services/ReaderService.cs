@@ -1,10 +1,5 @@
 ﻿using KaifaHanReader.Models;
-using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaifaHanReaderService.Services
 {
@@ -19,12 +14,14 @@ namespace KaifaHanReaderService.Services
         {
             _logger = logger;
             vPort = new("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
+            vPort.DataReceived += VPort_DataReceived;
+
             _logger.LogDebug("vPort created");
         }
 
         private void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            _logger.LogDebug("Setting up data reciever");
+            _logger.LogDebug("Recieved data");
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
             var bufferList = new List<byte>();
@@ -40,14 +37,18 @@ namespace KaifaHanReaderService.Services
                     _logger.LogInformation("Data: {@data}", data);
                 }
             }
+            _logger.LogDebug("Recieved data finished");
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("Reader Service Service running.");
 
-            _timer = new Timer(DoWork, null, TimeSpan.FromSeconds(1)
-                , TimeSpan.Zero);
+            _timer = new Timer(
+                DoWork,
+                null,
+                1, Timeout.Infinite
+            );
 
             return Task.CompletedTask;
         }
@@ -58,7 +59,6 @@ namespace KaifaHanReaderService.Services
             {
                 var count = Interlocked.Increment(ref executionCount);
 
-                vPort.DataReceived += VPort_DataReceived;
                 vPort.Open();
                 _logger.LogInformation("Reader Service is working. Count: {Count}", count);
 
