@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rdGOzsXwdkaGguBLYit265DKEtDGOEbJrO6L5egjfeFL/u/HHi7jSgY4Q/JOiW3ztbihMZTWUL5RP9+xdRxZpA==",
+  "dgSpecHash": "79IOI4/sNLwKJKQ+LgdbReusm79H8c+KxNZ1pIdYAZY3xjTAIUG9qe0//U34Yy+6AWLeaGqO9I+hZLRaqqu6ZQ==",
   "success": true,
   "projectFilePath": "C:\\Kode\\GitHub\\AmsToMqttBridge\\Code\\KaifaHanReaderService\\KaifaHanReaderService.csproj",
   "expectedPackageFiles": [
@@ -38,6 +38,7 @@
     "C:\\Users\\torsv\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.1\\system.diagnostics.diagnosticsource.7.0.1.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\system.diagnostics.eventlog\\7.0.0\\system.diagnostics.eventlog.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\system.io.ports\\7.0.0\\system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\torsv\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\torsv\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],
