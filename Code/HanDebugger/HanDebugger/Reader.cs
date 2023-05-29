@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HanDebugger
 {
     public class Reader
     {
-        private int position;
-        private int dataLength;
-        private byte[] buffer;
+        private readonly int position;
+        private readonly int dataLength;
+        private readonly byte[] buffer;
 
-        static List<long> consumption = new List<long>();
-
+        public byte[] Buffer => buffer;
         public Reader(byte[] buffer)
         {
             this.buffer = buffer;
@@ -84,15 +79,9 @@ namespace HanDebugger
             System.Console.WriteLine("Checking consumption...");
             var consume = (long)KaifaHanBeta.GetInt(consumptionElementStart, line, 0, line.Length);
             System.Console.WriteLine("Current consumption: {0} Watt", consume);
-            consumption.Add(consume);
-            //System.Console.WriteLine("Average consumption: {0:0.###} kW", consumption.Average());
-
             var productionElementStart = 75;
-
             if (listId == HanDebugger.KaifaHanBeta.List2 || listId == HanDebugger.KaifaHanBeta.List3)
             {
-                //var produce = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
-                //System.Console.WriteLine("Current production: {0} Watt", produce);
                 var production = KaifaHanBeta.GetInt(productionElementStart, line, 0, line.Length);
                 System.Console.WriteLine("Current production: {0} Watt", production);
             }
@@ -101,8 +90,8 @@ namespace HanDebugger
             {
                 var cumulativeProductionStart = 139;
                 var cumulativeConsumptionStart = 134;
-                var startReactivePluss=144;
-                var startReactiveMinus=149;
+                var startReactivePluss = 144;
+                var startReactiveMinus = 149;
                 var totalConsumption = KaifaHanBeta.GetInt(cumulativeConsumptionStart, line, 0, line.Length);
                 System.Console.WriteLine("Total consumption (A+): {0:#.###} kW/h", (decimal)totalConsumption / 1000);
                 var totalReactivePluss = KaifaHanBeta.GetInt(startReactivePluss, line, 0, line.Length);

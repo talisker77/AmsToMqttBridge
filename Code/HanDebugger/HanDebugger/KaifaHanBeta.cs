@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HanDebugger
 {
@@ -48,19 +44,11 @@ namespace HanDebugger
         {
             const int timeStart = 19;
             int year = package[start + timeStart] << 8 | package[start + timeStart + 1];
-
-            // System.Console.WriteLine("Year: {0}", year);
             int month = package[start + timeStart + 2];
-            // System.Console.WriteLine("Month: {0}", month);
             int day = package[start + timeStart + 3];
-            // System.Console.WriteLine("Day: {0}", day);
             int hour = package[start + timeStart + 5];
-            // System.Console.WriteLine("Hour: {0}", hour);
             int minute = package[start + timeStart + 6];
-            // System.Console.WriteLine("Minute: {0}", minute);
             int second = package[start + timeStart + 7];
-            // System.Console.WriteLine("Second: {0}", second);
-
 
             return new DateTime(year, month, day, hour, minute, second);
         }
@@ -74,7 +62,7 @@ namespace HanDebugger
             {
                 if (foundPosition == 0)
                 {
-                    if (buffer[i] == 0x06)
+                    if (buffer[i] == 0x06) //start read buffer bytes
                         foundPosition = i;
                 }
                 else
@@ -91,25 +79,6 @@ namespace HanDebugger
         {
             var size = buffer[1] & 0x0F << 8 | buffer[2];
             return Convert.ToUInt16(size);
-        }
-
-        public static ulong GetULong(int start, byte[] buffer)
-        {
-            var number = BitConverter.ToUInt64(buffer, start);
-            return (ulong)number;
-        }
-
-        public static ulong ToULong(int start, byte[] buffer)
-        {
-            //byte[] buffer = /* Your byte array */;
-            //int startPosition = /* Start position of the ulong value in the buffer */;
-
-            ulong value = 0;
-            for (int i = 0; i < 8; i++)
-            {
-                value |= (ulong)buffer[start + i] << (8 * i);
-            }
-            return value;
         }
     }
 }

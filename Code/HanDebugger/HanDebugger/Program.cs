@@ -33,7 +33,9 @@ namespace HanDebugger
 
                 // If we're catching a '7E' and it's not the beginning, it must be the end
                 if (gBuffer.Count > 1 && vBuffer[i] == 0x7e)
+                {
                     WriteAndEmptyBuffer();
+                }
             }
         }
 
