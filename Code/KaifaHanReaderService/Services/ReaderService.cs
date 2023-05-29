@@ -18,11 +18,10 @@ namespace KaifaHanReaderService.Services
         {
             _logger = logger;
             vPort = new("/dev/ttyUSB0", 2400, Parity.Even, 8, StopBits.One);
-            vPort.DataReceived += VPort_DataReceived;
 
         }
 
-        private void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private static void VPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var vPort = sender as SerialPort;
             byte[] vBuffer = new byte[1024];
@@ -56,13 +55,14 @@ namespace KaifaHanReaderService.Services
             {
                 var count = Interlocked.Increment(ref executionCount);
 
+                vPort.DataReceived += VPort_DataReceived;
                 vPort.Open();
-                _logger.LogInformation(
-                    "Reader Service is working. Count: {Count}", count);
+                _logger.LogInformation("Reader Service is working. Count: {Count}", count);
 
                 while (true)
                 {
-                    Task.Delay(1000).ConfigureAwait(false).GetAwaiter().GetResult();
+                    Thread.Sleep(TimeSpan.FromSeconds(10));
+                    _logger.LogDebug("Pulse...");
                 }
             }
             catch (Exception ex)
